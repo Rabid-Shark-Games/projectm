@@ -10,8 +10,14 @@ public:
   int movespeed;
 
   Player();
+  virtual ~Player() = default;
 
   std::vector<PlayerAction*> actions;
+};
+
+class HasMana: public Player {
+public:
+  float mana;
 };
 
 class Fighter: public Player {
@@ -19,7 +25,7 @@ public:
   Fighter();
 };
 
-class Healer: public Player {
+class Healer: public HasMana {
 public:
   Healer();
 };

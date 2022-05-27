@@ -149,6 +149,32 @@ void ProcessAction(std::shared_ptr<Player>& player) {
 
     PlayerAction* action = player->actions[act - 1];
 
+    ActionReq* req = &action->req;
+
+    bool passed = false;
+
+    switch (req->type) {
+      case ActionReqType::NONE:
+        std::cout << "Requires nothing.";
+        passed = true;
+        break;
+      case ActionReqType::MANA:
+        std::cout << "Requires " << req->amount << "mana.\n";
+        auto* player_tmp = player.get();
+        auto* manadp = dynamic_cast<HasMana*>(player_tmp);
+        if (manadp == nullptr) {
+          std::cout << "You would never have it!\n";
+          break;
+        }
+        if (manadp->mana < req->amount) {
+          std::cout << "You don't have it!\n";
+          break;
+        }
+        std::cout << "You have it!\n";
+        passed = true;
+        break;
+    }
+
     std::cout << "You used " << action->title << "!\n";
 
     return;
