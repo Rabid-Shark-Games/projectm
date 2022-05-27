@@ -1,0 +1,4 @@
+*.o
+*.exe
+.tup
+graph.png

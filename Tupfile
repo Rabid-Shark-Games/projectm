@@ -1,0 +1,6 @@
+CFLAGS += -std=c++11
+CFLAGS += -Wall
+CFLAGS += -g
+
+: foreach src/*.cc |> g++ -c %f -o %o $(CFLAGS) |> src/%B.o
+: src/*.o |> g++ %f -o %o |> out.exe
